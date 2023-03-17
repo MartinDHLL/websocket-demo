@@ -18,20 +18,17 @@ function App() {
 
     socket.on("connect", () => setConnectionStatus(socket.connected));
     socket.on("disconnect", () => setConnectionStatus(socket.connected));
-    socket.on("usernameOnConnection", (message) => console.log(message));
   }, [connectionStatus]);
 
   return (
     <>
-      <div className="fixed top-0 flex flex-row justify-between min-h-screen min-w-full">
+      <div className="fixed top-0 flex flex-row justify-between min-h-screen min-w-full bg-white text-back">
         <ChannelsList />
         <MessagesList />
         <OptionsSidebar username={username} />
       </div>
 
-      <div id="connection-window">
-        <ConnectionWindow setUsername={setUsername} />
-      </div>
+      <ConnectionWindow setUsername={setUsername} />
     </>
   );
 }

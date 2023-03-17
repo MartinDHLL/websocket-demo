@@ -5,13 +5,9 @@ const socket = new (require("socket.io").Server)(server, {
 });
 
 socket.on("connection", (socket) => {
-  socket.on("usernameOnConnection", (username) => {
-    console.log(`A new user has been connect as ${username}`);
-    socket.emit(
-      "usernameOnConnection",
-      `connection approuved by server with username ${username}`
-    );
-  });
+  console.log(
+    `A new user has been connected : ${socket.handshake.query.username}`
+  );
 });
 
 socket.listen(3001);
