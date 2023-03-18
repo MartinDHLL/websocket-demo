@@ -1,8 +1,14 @@
-const Message = ({ author, content, date }) => (
-  <div className="flex flex-col gap-y-2 max-w-fit bg-stone-200 p-3 rounded-tr-lg rounded-br-lg self">
+const Message = ({ sender, content, date, isSender }) => (
+  <div
+    className={`flex flex-col gap-y-2 max-w-fit  p-2 + ${
+      isSender
+        ? "bg-green-100 self-end rounded-tl-lg rounded-bl-lg"
+        : "bg-blue-100 self-start rounded-tr-lg rounded-br-lg"
+    }`}
+  >
     <div className="flex justify-between gap-x-10">
       <p>
-        De : <span className="text-gray-800">{author}</span>
+        De : <span className="text-gray-800">{sender}</span>
       </p>
       <p>{date}</p>
     </div>
