@@ -1,13 +1,20 @@
+const { disconnect } = require("process");
+
 const server = require("http").createServer();
 
-const socket = new (require("socket.io").Server)(server, {
+const socketMain = new (require("socket.io").Server)(server, {
   cors: { origin: "http://localhost:3000" },
 });
 
-socket.on("connection", (socket) => {
+socketMain.on("connection", (socket) => {
   console.log(
     `A new user has been connected : ${socket.handshake.query.username}`
   );
+  socket.on("disconnect", (reason) => {
+    console.log(
+      `User ${socket.handshake.query.username} has been disconnected \n[${reason}]`
+    );
+  });
 });
 
-socket.listen(3001);
+socketMain.listen(3001);

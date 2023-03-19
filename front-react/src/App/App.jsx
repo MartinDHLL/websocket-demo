@@ -9,7 +9,7 @@ import "./App.css";
 function App() {
   const [connectionStatus, setConnectionStatus] = useState(socket.connected);
   const [username, setUsername] = useState("");
-  const [room, setRoom] = useState("");
+  const [room, setRoom] = useState(null);
   const [messages, setMessages] = useState([]);
 
   // socket.connect(); // remove after
@@ -83,7 +83,7 @@ function App() {
 
   return (
     <>
-      <div className="fixed top-0 flex flex-row justify-between min-h-screen min-w-full bg-white text-back">
+      <div className="fixed w-full top-0 flex flex-row justify-between min-h-screen min-w-full bg-white text-back">
         <ChannelsList room={room} changeRoom={changeRoom} />
         {room != null ? (
           <MessagesList messages={messages} />
