@@ -1,5 +1,3 @@
-const { disconnect } = require("process");
-
 const server = require("http").createServer();
 
 const socketMain = new (require("socket.io").Server)(server, {
@@ -14,6 +12,11 @@ socketMain.on("connection", (socket) => {
     console.log(
       `User ${socket.handshake.query.username} has been disconnected \n[${reason}]`
     );
+  });
+  socket.on("join", (room) => socket.join(room));
+  socket.on("message", (room, message) => {
+    console.log(`from room : ${room}\nmessage : ${message.content}`);
+    socket.to(room).emit("message", message);
   });
 });
 

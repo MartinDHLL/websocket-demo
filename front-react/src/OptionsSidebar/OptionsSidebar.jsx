@@ -5,12 +5,16 @@ export default function OptionsSidebar({ username }) {
   const [barClass, setBarClass] = useState("");
   const [isBarOpen, setBarState] = useState(false);
 
-  const handleClick = () => {
-    console.log(isBarOpen);
-    setBarState(false);
-    socket.disconnect();
-    console.log(isBarOpen);
-  };
+  const handleClick = isBarOpen
+    ? () => {
+        console.log(isBarOpen);
+        setBarState(false);
+        socket.disconnect();
+        console.log(isBarOpen);
+      }
+    : () => {
+        setBarState(true);
+      };
 
   useEffect(() => {
     setBarClass(
@@ -23,7 +27,7 @@ export default function OptionsSidebar({ username }) {
   }, [isBarOpen]);
 
   return (
-    <div onClick={() => setBarState(true)} className={barClass}>
+    <div onClick={handleClick} className={barClass}>
       {!isBarOpen ? (
         <div className="flex flex-col justify-center h-full">
           <hr className="border-2 h-[30%] rounded-full" />
