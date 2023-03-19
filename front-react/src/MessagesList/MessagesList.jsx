@@ -13,7 +13,7 @@ export default function MessagesList({ messages }) {
                 sender={message.sender}
                 content={message.content}
                 date={message.date}
-                isSender={socket.io.opts.query.username === message.author}
+                isSender={socket.io.opts.query.username === message.sender}
               />
             );
           })

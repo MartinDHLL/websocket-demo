@@ -12,7 +12,7 @@ export default function ChannelsList({ changeRoom }) {
         <AddButton />
       </div>
       <div className="flex flex-col justify-start h-full gap-y-5 w-full text-left p-3">
-        <Channel name="Secret Projet" changeRoom={changeRoom} /*color=0*/ />
+        <Channel name="Secret Project" changeRoom={changeRoom} /*color=0*/ />
         <Channel name="LXP" changeRoom={changeRoom} /*color=1*/ />
         <Channel name="Perfect Future" changeRoom={changeRoom} />
       </div>
