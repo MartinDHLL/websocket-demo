@@ -12,12 +12,10 @@ function App() {
   const [room, setRoom] = useState(null);
   const [messages, setMessages] = useState([]);
 
-  // socket.connect(); // remove after
-
   const changeRoom = (name) => {
     setRoom(name);
     socket.emit("join room", name);
-    //send event to socket
+    setMessages([]);
   };
 
   useEffect(() => {
@@ -32,6 +30,7 @@ function App() {
           sender: message.sender,
           content: message.content,
           date: message.date,
+          hours: message.hours,
         },
       ]);
     }
@@ -60,7 +59,6 @@ function App() {
         ) : (
           <p className="text-xl py-10">Aucune discussions selectionnées</p>
         )}
-
         <OptionsSidebar username={username} />
       </div>
 

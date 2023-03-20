@@ -1,4 +1,4 @@
-const Message = ({ sender, content, date, isSender }) => (
+const Message = ({ sender, content, date, hours, isSender }) => (
   <div
     className={`flex flex-col gap-y-2 max-w-fit  p-2 + ${
       isSender
@@ -10,7 +10,9 @@ const Message = ({ sender, content, date, isSender }) => (
       <p>
         De : <span className="text-gray-800">{sender}</span>
       </p>
-      <p>{date}</p>
+      <p>
+        {date} à {hours}
+      </p>
     </div>
     <div>
       <p>{content}</p>

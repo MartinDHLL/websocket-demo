@@ -1,3 +1,8 @@
+import {
+  generateDate,
+  generateHours,
+  transformDate,
+} from "../services/date.service";
 import socket from "../socketio";
 import Input from "./Input/Input";
 import Message from "./Message/Message";
@@ -8,7 +13,8 @@ export default function MessagesList({ messages, room, setMessages }) {
       key: (messages[messages.length - 1]?.key ?? 0) + 1,
       sender: socket.io.opts.query.username,
       content: content,
-      date: Date.now(),
+      date: generateDate(),
+      hours: generateHours(),
     };
     socket.send(room, message);
     setMessages((messages) => [...messages, message]);
@@ -24,7 +30,8 @@ export default function MessagesList({ messages, room, setMessages }) {
                 key={message.key}
                 sender={message.sender}
                 content={message.content}
-                date={message.date}
+                date={transformDate(message.date)}
+                hours={message.hours}
                 isSender={socket.io.opts.query.username === message.sender}
               />
             );
