@@ -14,7 +14,7 @@ socketMain.on("connection", (socket) => {
     );
   });
   socket.on("join room", (room) => {
-    let canBeLeft = 0;
+    let canBeLeft = false;
     socket.rooms.forEach((room) =>
       canBeLeft ? socket.leave(room) : (canBeLeft = false)
     );

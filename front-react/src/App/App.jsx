@@ -59,7 +59,7 @@ function App() {
         ) : (
           <p className="text-xl py-10">Aucune discussions selectionnées</p>
         )}
-        <OptionsSidebar username={username} />
+        <OptionsSidebar username={username} changeRoom={changeRoom} />
       </div>
 
       <ConnectionWindow setUsername={setUsername} />
