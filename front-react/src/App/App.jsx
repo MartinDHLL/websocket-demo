@@ -16,6 +16,7 @@ function App() {
 
   const changeRoom = (name) => {
     setRoom(name);
+    socket.emit("join room", name);
     //send event to socket
   };
 
@@ -23,71 +24,28 @@ function App() {
     const connectionWindow = document.getElementById("connection-window");
     connectionWindow.hidden = connectionStatus;
 
+    function addMessage(message) {
+      setMessages((messages) => [
+        ...messages,
+        {
+          key: (messages[messages.length - 1]?.key ?? 0) + 1,
+          sender: message.sender,
+          content: message.content,
+          date: message.date,
+        },
+      ]);
+    }
+
     socket.on("connect", () => setConnectionStatus(socket.connected));
     socket.on("disconnect", () => setConnectionStatus(socket.connected));
-    socket.on("message", (message) => setMessages(messages.push(message)));
+    socket.on("message", addMessage);
 
-    // replace switch by event listener to charge message from different room
-    switch (room) {
-      default:
-        setMessages([]);
-        break;
-      case "Secret Project":
-        setMessages([
-          {
-            id: 1,
-            sender: "Martin",
-            content: "salut tlm ! :D",
-            date: "hier, 10 h 15",
-          },
-          {
-            id: 2,
-            sender: "Testeur",
-            content: "salut, ready pour le test ?",
-            date: "hier, 12 h 15",
-          },
-          {
-            id: 3,
-            sender: "Martin",
-            content: "TEST",
-            date: "aujourd'hui, 10 h 15",
-          },
-        ]);
-        break;
-      case "LXP":
-        setMessages([
-          {
-            id: 1,
-            sender: "Cyril",
-            content: "On benchmark ?",
-            date: "hier, 16 h 25",
-          },
-          {
-            id: 2,
-            sender: "Martin",
-            content: "Ok, Chat GPT en dis quoi ?",
-            date: "hier, 16 h 25",
-          },
-          {
-            id: 3,
-            sender: "Cyril",
-            content: "J'ai sorti l'article sur mon blog",
-            date: "aujourd'hui, 10 h 13",
-          },
-        ]);
-        break;
-      case "Perfect Future":
-        setMessages([
-          {
-            id: 1,
-            sender: "le futur",
-            content: "Salut",
-            date: "demain, 12 h 45",
-          },
-        ]);
-        break;
-    }
-  }, [connectionStatus, room, messages]);
+    return () => {
+      socket.off("connect", () => setConnectionStatus(socket.connected));
+      socket.off("disconnect", () => setConnectionStatus(socket.connected));
+      socket.off("message", addMessage);
+    };
+  }, [messages, connectionStatus]);
 
   return (
     <>

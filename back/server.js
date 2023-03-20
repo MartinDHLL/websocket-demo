@@ -13,7 +13,13 @@ socketMain.on("connection", (socket) => {
       `User ${socket.handshake.query.username} has been disconnected \n[${reason}]`
     );
   });
-  socket.on("join", (room) => socket.join(room));
+  socket.on("join room", (room) => {
+    let canBeLeft = 0;
+    socket.rooms.forEach((room) =>
+      canBeLeft ? socket.leave(room) : (canBeLeft = false)
+    );
+    socket.join(room);
+  });
   socket.on("message", (room, message) => {
     console.log(`from room : ${room}\nmessage : ${message.content}`);
     socket.to(room).emit("message", message);
