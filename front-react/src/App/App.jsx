@@ -17,7 +17,7 @@ function App() {
     setMessagesLoadStatus(false);
     setRoom(name);
     socket.emit("join room", name);
-    // replace code bellow by DB implementation, fetch or axios...  if(data) {setMessages(data);setMessagesLoadStatus(true);}
+    // replace code bellow by DB implementation, fetch(...get..."/roomname") or axios...  if(data) {setMessages(data);setMessagesLoadStatus(true);}
     setMessages([]);
     setTimeout(() => setMessagesLoadStatus(true), 2000);
   };
