@@ -10,15 +10,16 @@
 /coverage
 
 # production
-front-react/build
+/front-react/build
 
 # misc
-front-react/.DS_Store
-front-react/.env.local
-front-react/.env.development.local
-front-react/.env.test.local
-front-react/.env.production.local
+/front-react/.DS_Store
+/front-react/.env.local
+/front-react/.env.development.local
+/front-react/.env.test.local
+/front-react/.env.production.local
+/back/.env
 
-front-react/npm-debug.log*
-front-react/yarn-debug.log*
-front-react/yarn-error.log*
+/front-react/npm-debug.log*
+/front-react/yarn-debug.log*
+/front-react/yarn-error.log*

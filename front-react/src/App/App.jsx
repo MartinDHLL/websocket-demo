@@ -11,11 +11,15 @@ function App() {
   const [username, setUsername] = useState("");
   const [room, setRoom] = useState(null);
   const [messages, setMessages] = useState([]);
+  const [isMessagesLoaded, setMessagesLoadStatus] = useState(false);
 
   const changeRoom = (name) => {
+    setMessagesLoadStatus(false);
     setRoom(name);
     socket.emit("join room", name);
+    // replace code bellow by DB implementation, fetch or axios...  if(data) {setMessages(data);setMessagesLoadStatus(true);}
     setMessages([]);
+    setTimeout(() => setMessagesLoadStatus(true), 2000);
   };
 
   useEffect(() => {
@@ -55,6 +59,7 @@ function App() {
             messages={messages}
             setMessages={setMessages}
             room={room}
+            isMessagesLoaded={isMessagesLoaded}
           />
         ) : (
           <p className="text-xl py-10">Aucune discussions selectionnées</p>
