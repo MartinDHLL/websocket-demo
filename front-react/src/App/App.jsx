@@ -3,6 +3,7 @@ import ChannelsList from "../ChannelsList/ChannelsList";
 import ConnectionWindow from "../ConnectionWindow/ConnectionWindow";
 import MessagesList from "../MessagesList/MessagesList";
 import OptionsSidebar from "../OptionsSidebar/OptionsSidebar";
+import { getMessages } from "../services/message.service";
 import socket from "../socketio";
 import "./App.css";
 
@@ -14,18 +15,17 @@ function App() {
   const [isMessagesLoaded, setMessagesLoadStatus] = useState(false);
 
   const changeRoom = (name) => {
-    setMessagesLoadStatus(false);
     setRoom(name);
-    socket.emit("join room", name);
-    // replace code bellow by DB implementation, fetch(...get..."/roomname") or axios...  if(data) {setMessages(data);setMessagesLoadStatus(true);}
+    setMessagesLoadStatus(false);
     setMessages([]);
-    setTimeout(() => setMessagesLoadStatus(true), 2000);
+    socket.emit("request join room"); // send a request to join the room, the back-end will check data and cleans all active rooms
   };
 
   useEffect(() => {
     const connectionWindow = document.getElementById("connection-window");
     connectionWindow.hidden = connectionStatus;
 
+    // When a message is received, the message is added to the array
     function addMessage(message) {
       setMessages((messages) => [
         ...messages,
@@ -39,16 +39,35 @@ function App() {
       ]);
     }
 
+    // Get all messages of a room and join the room with the socket when the user is authorized to join
+    function getMessagesAndJoin() {
+      console.log("ok");
+      getMessages(room).then((data) => {
+        if (data && data.length > 0) {
+          data[0].key = (messages[messages.length - 1]?.key ?? 0) + 1;
+          console.log(data);
+          setMessages(data);
+          setMessagesLoadStatus(true);
+          socket.emit("join room", room);
+          return;
+        }
+        setMessagesLoadStatus(true);
+        return;
+      });
+    }
+
     socket.on("connect", () => setConnectionStatus(socket.connected));
     socket.on("disconnect", () => setConnectionStatus(socket.connected));
     socket.on("message", addMessage);
+    socket.on("join room", getMessagesAndJoin);
 
     return () => {
       socket.off("connect", () => setConnectionStatus(socket.connected));
       socket.off("disconnect", () => setConnectionStatus(socket.connected));
       socket.off("message", addMessage);
+      socket.off("join room", getMessagesAndJoin);
     };
-  }, [messages, connectionStatus]);
+  }, [messages, connectionStatus, room]);
 
   return (
     <>

@@ -3,6 +3,7 @@ import {
   generateHours,
   transformDate,
 } from "../services/date.service";
+import { makeMessages } from "../services/message.service";
 import socket from "../socketio";
 import Input from "./Input/Input";
 import Message from "./Message/Message";
@@ -21,9 +22,12 @@ export default function MessagesList({
       date: generateDate(),
       hours: generateHours(),
     };
-    socket.send(room, message);
-    setMessages((messages) => [...messages, message]);
-    console.log(messages);
+    makeMessages(message, room).then((res) => {
+      if (!res) return;
+      socket.send(room, message);
+      setMessages((messages) => [...messages, message]);
+      console.log(messages);
+    });
   };
 
   if (!isMessagesLoaded) {
