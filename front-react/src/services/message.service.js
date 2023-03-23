@@ -1,15 +1,15 @@
 export const getMessages = async (room) => {
-  const data = await fetch(`http://localhost:3001/messages/${room}`);
-  return data.json();
+  const res = await fetch(`http://localhost:3001/messages/${room}`);
+  if (res.status === 200) return res.json();
 };
 
-export const makeMessages = async (message, room) => {
-  const data = await fetch(`http://localhost:3001/messages/`, {
+export const makeMessages = async (message) => {
+  const res = await fetch(`http://localhost:3001/messages/`, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
-    body: JSON.stringify(message, room),
+    body: JSON.stringify(message),
   });
-  if (data) {
+  if (res.status === 201) {
     return true;
   }
   return false;

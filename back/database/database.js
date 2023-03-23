@@ -4,7 +4,7 @@ const { default: mongoose } = require("mongoose");
 const db = {
   db: mongoose
     .connect(
-      `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASS}@${process.env.DB_URL}/?retryWrites=true&w=majority`
+      `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASS}@${process.env.DB_URL}/`
     )
     .catch((e) => console.error(e))
     .then(console.log("connection to db sucessfull")),

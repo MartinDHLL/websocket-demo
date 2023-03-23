@@ -5,7 +5,7 @@ const messageSchema = new Schema({
   content: { type: Schema.Types.String },
   date: { type: Schema.Types.String },
   hours: { type: Schema.Types.String },
-  room: { type: Schema.Types.ObjectId, ref: "Room" },
+  room: { type: Schema.Types.ObjectId, ref: "Message" },
 });
 
 module.exports = messageSchema;

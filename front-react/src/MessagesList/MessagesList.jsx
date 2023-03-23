@@ -21,8 +21,9 @@ export default function MessagesList({
       content: content,
       date: generateDate(),
       hours: generateHours(),
+      room: room,
     };
-    makeMessages(message, room).then((res) => {
+    makeMessages(message).then((res) => {
       if (!res) return;
       socket.send(room, message);
       setMessages((messages) => [...messages, message]);

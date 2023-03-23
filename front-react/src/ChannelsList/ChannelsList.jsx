@@ -7,8 +7,8 @@ export default function ChannelsList({ room, changeRoom }) {
     <div className="w-fit flex flex-col justify-start items-start gap-y-4 bg-stone-800 min-h-full overflow-hidden text-center">
       <div className="w-full flex justify-between ">
         <Icon icon="home" />
-        <Icon icon="user" />
-        <Icon icon="group" />
+        <Icon icon="chat" />
+        <Icon icon="kanban" />
         <AddButton />
       </div>
       <div className="flex flex-col justify-start h-full gap-y-5 w-full text-left p-3">

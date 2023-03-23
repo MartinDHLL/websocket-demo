@@ -1,5 +1,5 @@
 const AddButton = () => (
-  <div className="min-w-[50px] h-[50px] bg-stone-700 text-white hover:text-green-200 hover:bg-green-900 text-3xl cursor-pointer">
+  <div className="min-w-[50px] h-[50px] bg-gray-600 hover:bg-green-700 cursor-pointer p-3 ml-1 rounded-bl-lg">
     <button>+</button>
   </div>
 );
