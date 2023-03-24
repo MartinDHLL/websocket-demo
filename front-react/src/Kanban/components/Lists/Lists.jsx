@@ -1,7 +1,13 @@
 import List from "./List";
 
 const Lists = ({ lists }) => {
-  return lists.map((list) => <List key={list.key} list={list} />);
+  return (
+    <div className="min-w-max flex justify-start gap-x-5 ">
+      {lists.map((list, i) => (
+        <List key={i} list={list} />
+      ))}
+    </div>
+  );
 };
 
 export default Lists;

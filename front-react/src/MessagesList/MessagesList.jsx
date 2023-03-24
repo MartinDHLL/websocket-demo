@@ -42,12 +42,12 @@ export default function MessagesList({
   } else {
     return (
       <div className="max-h-screen w-[70%]">
-        <div className=" py-2 h-[90%] flex flex-col-reverse items-start gap-y-10 overflow-y-scroll">
+        <div className=" py-2 h-[90%] flex flex-col items-start gap-y-10 overflow-y-scroll">
           {messages.length > 0 ? (
-            messages.map((message) => {
+            messages.map((message, i) => {
               return (
                 <Message
-                  key={message.key}
+                  key={message.key ?? i + 1}
                   sender={message.sender}
                   content={message.content}
                   date={transformDate(message.date)}
