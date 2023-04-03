@@ -9,12 +9,12 @@ import {
 import Task from "../Task/Task";
 
 const List = ({ list }) => (
-  <div className="w-[20%] border-[1px] border-slate-200 shadow-lg min-h-[400px] rounded-xl">
+  <div className="w-[30%] border-[1px] border-slate-200 shadow-lg min-h-[400px] rounded-xl">
     <TableContainer>
       <Table>
         <TableHead>
           <TableRow>
-            <TableCell align="center" colSpan={2}>
+            <TableCell align="center" colSpan={3}>
               {list.title}
             </TableCell>
           </TableRow>

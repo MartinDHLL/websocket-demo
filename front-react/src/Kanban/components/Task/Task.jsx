@@ -5,7 +5,8 @@ const Task = ({ task }) => {
   return (
     <TableRow>
       <TableCell className="break-all">{task.title}</TableCell>
-      <TaskPriorityIcon priority={task.priority} />
+      {task.priority ? <TaskPriorityIcon priority={task.priority} /> : "+"}
+      <TableCell></TableCell>
     </TableRow>
   );
 };

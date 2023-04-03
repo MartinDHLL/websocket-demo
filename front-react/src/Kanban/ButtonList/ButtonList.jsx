@@ -2,7 +2,7 @@ import { Stack } from "@mui/system";
 import { Add } from "./buttons";
 
 const ButtonList = ({ handleClick }) => (
-  <Stack direction={"row"}>
+  <Stack position={"fixed"} direction={"row"}>
     <Add handleClick={handleClick} />
   </Stack>
 );
