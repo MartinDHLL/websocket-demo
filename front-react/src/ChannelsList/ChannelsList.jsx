@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
 import { getRooms } from "../services/room.service";
-import AddButton from "./buttons/AddButton";
 import Icon from "./buttons/Icon";
 import Channel from "./Channel/Channel";
 
@@ -22,7 +21,6 @@ export default function ChannelsList({ room, changeRoom }) {
         <Icon icon="home" path="" />
         <Icon icon="chat" path="" active={true} />
         <Icon icon="kanban" path="kanban" />
-        <AddButton />
       </div>
       <div className="flex flex-col justify-start h-full gap-y-5 w-full text-left p-3">
         {channels.map((channel) => (

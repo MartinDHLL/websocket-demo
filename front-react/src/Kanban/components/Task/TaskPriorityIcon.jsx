@@ -14,10 +14,10 @@ const TaskPriorityIcon = ({ priority }) => {
   return (
     <TableCell className="h-full">
       <div
-        className="border-black border-2 rounded-[100%] text-center w-10 h-10 flex flex-col justify-center"
+        className="text-center w-10 h-10 flex flex-col justify-center"
         style={color()}
       >
-        <p className="">{priority}</p>
+        <p className="text-xl">{priority}</p>
       </div>
     </TableCell>
   );

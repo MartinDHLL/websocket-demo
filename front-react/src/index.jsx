@@ -7,8 +7,8 @@ import reportWebVitals from "./reportWebVitals";
 import Kanban from "./Kanban/Kanban";
 
 const router = createBrowserRouter([
-  { path: "/", element: <App /> },
-  { path: "/kanban", element: <Kanban /> },
+  // { path: "/", element: <App /> },
+  { path: "/", element: <Kanban /> },
 ]);
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
