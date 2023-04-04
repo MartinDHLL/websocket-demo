@@ -38,8 +38,27 @@ const List = ({ list, updateList, removeList }) => {
     toast("Tâche ajoutée", { icon: "➕" });
   };
 
+  const handleDragStart = (event) => {
+    event.dataTransfer.setData("text/plain", JSON.stringify({ list }));
+    event.dataTransfer.effectAllowed = "move";
+  };
+
+  const handleDrop = (event) => {
+    const newList = event.dataTransfer.getData("text/plain");
+    // updatelist with newList instead of actual list
+  };
+
   return (
-    <div className="w-[30%] border-[1px] border-slate-200 shadow-lg min-h-[400px] rounded-xl">
+    <div
+      onDragStart={handleDragStart}
+      draggable
+      className="w-[20%] border-[1px] border-slate-200 shadow-lg min-h-[400px] rounded-xl"
+      onDragOver={(event) => {
+        event.preventDefault();
+        event.dataTransfer.dropEffect = "move";
+      }}
+      onDrop={handleDrop}
+    >
       <TableContainer>
         <Table>
           <TableHead>
