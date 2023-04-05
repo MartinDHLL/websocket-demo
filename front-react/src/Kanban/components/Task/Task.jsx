@@ -1,9 +1,9 @@
-import { Button, TableCell, TableRow } from "@mui/material";
+import { Button, TableCell } from "@mui/material";
 import TaskPriorityIcon from "./TaskPriorityIcon";
 
 const Task = ({ task, remove }) => {
   return (
-    <div>
+    <>
       {task.priority ? (
         <TaskPriorityIcon priority={task.priority} />
       ) : (
@@ -15,7 +15,7 @@ const Task = ({ task, remove }) => {
       <TableCell onClick={() => remove(task)} className="hover:cursor-pointer">
         <img className="h-8" src="trash.svg" alt="trash icon" />
       </TableCell>
-    </div>
+    </>
   );
 };
 export default Task;

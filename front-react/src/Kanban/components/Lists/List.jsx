@@ -45,13 +45,11 @@ const List = ({ list, updateList, removeList }) => {
 
   const handleDrop = (event) => {
     event.target.style.backgroundColor = "#FFFFFF"
-    const oldData = {list};
     const newData = JSON.parse(event.dataTransfer.getData("text/plain"));
-    updateList({id:oldData.list.id, title:newData.list.title});
-    updateList({id:oldData.list.id, title:newData.list.title})
+    updateList({id:list.id, title:newData.list.title});
+    removeList(newData.list)
     setTasks(newData.tasks);
     console.log(newData);
-    console.log(oldData);
   };
 
   return (
@@ -122,20 +120,20 @@ const List = ({ list, updateList, removeList }) => {
               </TableCell>
             </TableRow>
           </TableHead>
-          <TableBody>
-            <TableRow> 
-            <div className="flex flex-col max-h-[20em] overflow-y-auto">
+          <TableBody className="overflow-y-auto max-h-[10em]">
             {tasks.length > 0 ? (
               tasks.map((task, i) => (
+                <TableRow> 
                 <Task key={i} task={task} remove={handleRemoveTask} />
+                </TableRow>
               ))
             ) : (
-              <TableCell>
-              <p className="text-center">Aucune tâches</p>
-              </TableCell>
+              <TableRow>
+                <TableCell>
+                <p className="text-center">Aucune tâches</p>
+                </TableCell>
+              </TableRow>
             )}
-            </div>
-            </TableRow>
           </TableBody>
         </Table>
       </TableContainer>
