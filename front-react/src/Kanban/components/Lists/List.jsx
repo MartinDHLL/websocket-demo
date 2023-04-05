@@ -39,26 +39,35 @@ const List = ({ list, updateList, removeList }) => {
   };
 
   const handleDragStart = (event) => {
-    event.dataTransfer.setData("text/plain", JSON.stringify({ list }));
+    event.dataTransfer.setData("text/plain", JSON.stringify({ list, tasks }));
     event.dataTransfer.effectAllowed = "move";
   };
 
   const handleDrop = (event) => {
-    const newList = event.dataTransfer.getData("text/plain");
-    // updatelist with newList instead of actual list
+    event.target.style.backgroundColor = "#FFFFFF"
+    const oldData = {list};
+    const newData = JSON.parse(event.dataTransfer.getData("text/plain"));
+    updateList({id:oldData.list.id, title:newData.list.title});
+    updateList({id:oldData.list.id, title:newData.list.title})
+    setTasks(newData.tasks);
+    console.log(newData);
+    console.log(oldData);
   };
 
   return (
     <div
-      onDragStart={handleDragStart}
-      draggable
-      className="w-[20%] border-[1px] border-slate-200 shadow-lg min-h-[400px] rounded-xl"
+      className="w-min-max w-[20em] border-[1px] border-slate-200 shadow-lg rounded-xl"
       onDragOver={(event) => {
         event.preventDefault();
         event.dataTransfer.dropEffect = "move";
+        event.target.style.backgroundColor = "#F2F4F4";
+      }}
+      onDragLeave={(event) => {
+        event.target.style.backgroundColor = "#FFFFFF";
       }}
       onDrop={handleDrop}
     >
+    <Button onDragStart={handleDragStart} draggable>drag area</Button>
       <TableContainer>
         <Table>
           <TableHead>
@@ -79,7 +88,14 @@ const List = ({ list, updateList, removeList }) => {
                     {list.title}
                   </p>
                 )}
+              </TableCell>
+            </TableRow>
+            <TableRow>
+              <TableCell colSpan={3}>
                 <Stack direction={"row"} justifyContent={"center"}>
+                  {/* <Button onClick={() => removeList(list)} variant="outlined">
+                    supprimer la liste
+                  </Button> */}
                   <OutlinedInput
                     size="small"
                     maxRows={1}
@@ -105,28 +121,21 @@ const List = ({ list, updateList, removeList }) => {
                 </Stack>
               </TableCell>
             </TableRow>
-            <TableRow>
-              <TableCell colSpan={3}>
-                <Stack direction={"row"} justifyContent={"center"}>
-                  <Button onClick={() => removeList(list)} variant="outlined">
-                    supprimer la liste
-                  </Button>
-                </Stack>
-              </TableCell>
-            </TableRow>
           </TableHead>
           <TableBody>
+            <TableRow> 
+            <div className="flex flex-col max-h-[20em] overflow-y-auto">
             {tasks.length > 0 ? (
               tasks.map((task, i) => (
                 <Task key={i} task={task} remove={handleRemoveTask} />
               ))
             ) : (
-              <TableRow>
-                <TableCell>
-                  <p className="text-center">Aucune tâches</p>
-                </TableCell>
-              </TableRow>
+              <TableCell>
+              <p className="text-center">Aucune tâches</p>
+              </TableCell>
             )}
+            </div>
+            </TableRow>
           </TableBody>
         </Table>
       </TableContainer>

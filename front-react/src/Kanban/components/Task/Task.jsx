@@ -3,7 +3,7 @@ import TaskPriorityIcon from "./TaskPriorityIcon";
 
 const Task = ({ task, remove }) => {
   return (
-    <TableRow>
+    <div>
       {task.priority ? (
         <TaskPriorityIcon priority={task.priority} />
       ) : (
@@ -15,7 +15,7 @@ const Task = ({ task, remove }) => {
       <TableCell onClick={() => remove(task)} className="hover:cursor-pointer">
         <img className="h-8" src="trash.svg" alt="trash icon" />
       </TableCell>
-    </TableRow>
+    </div>
   );
 };
 export default Task;
